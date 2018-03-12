@@ -1,10 +1,9 @@
 node {
     
     stage('Checkout')
-
-    
+    {
     git url: 'https://github.com/vinitjha1993/jenkins-multibranch_pipeline.git'
-
+    }
    
     stage('Build')
     {
@@ -15,5 +14,8 @@ node {
     }
     
     stage('Test')
-    sh 'myproject/python manage.py runserver ec2-34-213-166-54.us-west-2.compute.amazonaws.com:8000 '
+    {
+    cd myproject
+    sh 'python manage.py runserver ec2-34-213-166-54.us-west-2.compute.amazonaws.com:8000'
+    }
 }
