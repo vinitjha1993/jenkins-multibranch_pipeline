@@ -8,6 +8,7 @@ node {
    
     stage 'Build'
     env.WORKSPACE = pwd()
+    #!/bin/sh
     sh 'virtualenv venv -p python3.6'
     sh 'source venv/bin/activate'
     sh 'pip install -r requirements.txt'
