@@ -8,11 +8,11 @@ node {
     stage('Build')
     {
     env.WORKSPACE = pwd()
-    sh './bash.sh'
+    sudo sh './bash.sh'
     }
 
     stage('Test')
     {
-    sh './test.sh'
+    sudo sh './test.sh'
     }    
   }
