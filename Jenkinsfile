@@ -1,32 +1,17 @@
-pipeline {
-    agent any
+node {
+    
+    stage 'Checkout'
 
-    stages {
-        stage ('Compile Stage') {
+    
+    git url: 'https://github.com/vinitjha1993/jenkins-multibranch_pipeline.git'
 
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn clean compile'
-                }
-            }
-        }
-
-        stage ('Testing Stage') {
-
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn test'
-                }
-            }
-        }
-
-
-        stage ('Deployment Stage') {
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn deploy'
-                }
-            }
-        }
-    }
+   
+    stage 'Build'
+    env.WORKSPACE = pwd()
+    sh 'virtualenv venv -p python3.6'
+    sh 'source venv/bin/activate'
+    sh 'pip install -r requirements.txt'
+    
+    stage 'Test'
+    sh 'myproject/python manage.py runserver ec2-34-213-166-54.us-west-2.compute.amazonaws.com:8000 '
 }
